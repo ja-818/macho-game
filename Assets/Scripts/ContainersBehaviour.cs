@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ContainersBehaviour : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class ContainersBehaviour : MonoBehaviour
                 }
                 if (hasChallenge)
                 {
-                    Debug.Log("Challenge Found!");
+                SceneManager.LoadScene(1);
                 }
                 if (hasCard == false && hasChallenge == false)
                 {
