@@ -5,9 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> containersList;
+    
     private int number1;
     private int number2;
     private int number3;
+
+    public bool isChallengeFound;
 
     // Start is called before the first frame update
     void Start()

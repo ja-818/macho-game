@@ -5,10 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class ContainersBehaviour : MonoBehaviour
 {
+    //VARIABLES
     bool playerOnTreshold;
-    public bool hasCard;
     public bool hasChallenge;
+    public bool hasCard;
     float rotationOnTreshold = 10f;
+
+    //REFERENCES
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    }
 
     private void Update()
     {
@@ -45,7 +54,8 @@ public class ContainersBehaviour : MonoBehaviour
                 }
                 if (hasChallenge)
                 {
-                SceneManager.LoadScene(1);
+                    gameManager.isChallengeFound = true;
+                    //SceneManager.LoadScene(1);
                 }
                 if (hasCard == false && hasChallenge == false)
                 {
