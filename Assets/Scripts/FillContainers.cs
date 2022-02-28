@@ -13,7 +13,7 @@ public class FillContainers : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        totalContainers = containersList.Count - 1;
+        totalContainers = containersList.Count;
         AssignCardsToContainers();
     }
     void AssignCardsToContainers()

@@ -16,6 +16,7 @@ public class CameraManager : MonoBehaviour
     //REFERENCES
     [SerializeField] GameObject statsPanel;
     [SerializeField] GameObject instructionsPanel;
+    [SerializeField] GameObject cardsPanel;
     private GameObject player;
     private Vector3 playerStartPos;
     private Vector3 cameraStartPos;
@@ -53,8 +54,9 @@ public class CameraManager : MonoBehaviour
         {
             ReturnToStartPos();
 
-            //Deactivates the stats panel
-            statsPanel.gameObject.SetActive(false); 
+            //Deactivates the stats and cards panels
+            statsPanel.gameObject.SetActive(false);
+            cardsPanel.gameObject.SetActive(false);
         }
     }
 
@@ -76,6 +78,7 @@ public class CameraManager : MonoBehaviour
         if(smoothSpeed < 2)
         {
             statsPanel.gameObject.SetActive(true);
+            cardsPanel.gameObject.SetActive(true);
         }
     }
 

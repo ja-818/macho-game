@@ -20,22 +20,59 @@ public class StatsUIManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        
+        SetStatsPanel();
+        SetCardsPanel();
+    }
+
+    void SetStatsPanel()
+    {
         //Initializes stats panel texts
         healthText.text = "Vida: " + gameManager.playerLife;
         mentalText.text = "Salud Mental: " + gameManager.playerMentalHealth;
         fameText.text = "Fama: " + gameManager.playerFame;
         penaltiesText.text = "Penalizaciones: " + gameManager.playerPenalties;
+    }
 
+    public void SetCardsPanel()
+    {
         //Initializes cards panel texts
         healthButtonText.text = gameManager.healthCards.ToString();
         mentalButtonText.text = gameManager.mentalCards.ToString();
         fameButtonText.text = gameManager.fameCards.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddLifeOnClick()
     {
+        if(gameManager.healthCards > 0)
+        {
+            gameManager.healthCards--;
+            gameManager.playerLife++;
+            SetStatsPanel();
+            SetCardsPanel();
+        }
+    }
+
+    public void AddMentalHealthOnClick()
+    {
+        if(gameManager.mentalCards > 0)
+        {
+            gameManager.mentalCards--;
+            gameManager.playerMentalHealth++;
+            SetStatsPanel();
+            SetCardsPanel();
+        }
+    }
+
+    public void AddFameOnClick()
+    {
+        if (gameManager.fameCards > 0)
+        {
+            gameManager.fameCards--;
+            gameManager.playerFame++;
+            SetStatsPanel();
+            SetCardsPanel();
+        }
         
     }
+
 }

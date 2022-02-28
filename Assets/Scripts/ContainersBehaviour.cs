@@ -50,12 +50,11 @@ public class ContainersBehaviour : MonoBehaviour
             {
                 if (hasCard)
                 {
-                    Debug.Log("Card Found!");
+                    gameManager.ChooseCard();
                 }
                 if (hasChallenge)
                 {
                     gameManager.isChallengeFound = true;
-                    //SceneManager.LoadScene(1);
                 }
                 if (hasCard == false && hasChallenge == false)
                 {
