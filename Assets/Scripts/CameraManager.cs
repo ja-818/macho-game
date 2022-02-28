@@ -10,9 +10,12 @@ public class CameraManager : MonoBehaviour
     private float timeToReturn = 1f;
     private float timer = 0f;
     bool isCameraPosStored;
+    bool areInstructionsOn;
     Vector3 cameraReturnPos;
 
     //REFERENCES
+    [SerializeField] GameObject statsPanel;
+    [SerializeField] GameObject instructionsPanel;
     private GameObject player;
     private Vector3 playerStartPos;
     private Vector3 cameraStartPos;
@@ -29,19 +32,29 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-      
+        //Activate the instructions to select who does the challenge when the camera returns to the initial position
+        if (isCameraPosStored && transform.position == cameraStartPos && !areInstructionsOn)
+        {
+            ActivateSelectChallengeInstructions();
+        }
     }
 
     void FixedUpdate()
     {
+        //Checks if the player has moved before following the player
         if (player.transform.position != playerStartPos && !gameManager.isChallengeFound)
         {
             FollowPlayer();
         }
 
+
+        //Checks if the challenge is found to return to the start position
         if(gameManager.isChallengeFound && transform.position != cameraStartPos)
         {
             ReturnToStartPos();
+
+            //Deactivates the stats panel
+            statsPanel.gameObject.SetActive(false); 
         }
     }
 
@@ -58,21 +71,34 @@ public class CameraManager : MonoBehaviour
         {
             smoothSpeed += 0.5f;
         }
+
+        //Activates the stats panel
+        if(smoothSpeed < 2)
+        {
+            statsPanel.gameObject.SetActive(true);
+        }
     }
 
     void ReturnToStartPos()
     {
-
+        //Stores the position in which the camera currently is
         if (!isCameraPosStored)
         {
             cameraReturnPos = transform.position;
             isCameraPosStored = true;
         }
 
+        //Returns the camera from the current position to the starting position on a fixed amount of time
         if(timer <= timeToReturn)
         {
             timer += Time.deltaTime;
             transform.position = cameraReturnPos + (cameraStartPos - cameraReturnPos) * (timer / timeToReturn);
         }
+    }
+
+    void ActivateSelectChallengeInstructions()
+    {
+            instructionsPanel.gameObject.SetActive(true);
+            areInstructionsOn = true;
     }
 }
