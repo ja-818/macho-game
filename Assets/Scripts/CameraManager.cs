@@ -10,7 +10,6 @@ public class CameraManager : MonoBehaviour
     private float timeToReturn = 1f;
     private float timer = 0f;
     bool isCameraPosStored;
-    bool areInstructionsOn;
     Vector3 cameraReturnPos;
 
     //REFERENCES
@@ -20,7 +19,6 @@ public class CameraManager : MonoBehaviour
     private GameObject player;
     private Vector3 playerStartPos;
     private Vector3 cameraStartPos;
-    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,29 +26,18 @@ public class CameraManager : MonoBehaviour
         player = GameObject.Find("Player");
         playerStartPos = player.GetComponent<Transform>().position;
         cameraStartPos = transform.position;
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
-
-    private void Update()
-    {
-        //Activate the instructions to select who does the challenge when the camera returns to the initial position
-        if (isCameraPosStored && transform.position == cameraStartPos && !areInstructionsOn)
-        {
-            ActivateSelectChallengeInstructions();
-        }
-    }
-
     void FixedUpdate()
     {
         //Checks if the player has moved before following the player
-        if (player.transform.position != playerStartPos && !gameManager.isChallengeFound)
+        if (player.transform.position != playerStartPos && !GameManager.Instance.isChallengeFound)
         {
             FollowPlayer();
         }
 
 
         //Checks if the challenge is found to return to the start position
-        if(gameManager.isChallengeFound && transform.position != cameraStartPos)
+        if(GameManager.Instance.isChallengeFound && transform.position != cameraStartPos)
         {
             ReturnToStartPos();
 
@@ -96,12 +83,14 @@ public class CameraManager : MonoBehaviour
         {
             timer += Time.deltaTime;
             transform.position = cameraReturnPos + (cameraStartPos - cameraReturnPos) * (timer / timeToReturn);
+            StartCoroutine("ActivateChoiceInstructionsRoutine");
         }
     }
 
-    void ActivateSelectChallengeInstructions()
+    //Activates the instructions for choose who does the challenge after the camera returns to the start pos
+    IEnumerator ActivateChoiceInstructionsRoutine()
     {
-            instructionsPanel.gameObject.SetActive(true);
-            areInstructionsOn = true;
+        yield return new WaitForSeconds(timeToReturn);
+        instructionsPanel.gameObject.SetActive(true);
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     //VARIABLES
     public int playerLife = 5;
     public int playerMentalHealth = 5;
@@ -16,31 +18,31 @@ public class GameManager : MonoBehaviour
 
     public bool isChallengeFound;
 
-
-    //REFERENCES
-    private StatsUIManager statsUIManagerScript;
-
-    private void Start()
+    private void Awake()
     {
-        statsUIManagerScript = GameObject.Find("Canvas").GetComponent<StatsUIManager>();
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void ChooseCard()
+    private void Update()
     {
-        int number = Random.Range(0, 3);
-        switch (number)
-        {
-            case 0:
-                healthCards++;
-                break;
-            case 1:
-                mentalCards++;
-                break;
-            case 2:
-                fameCards++;
-                break;
-        }
+        ChangeFamePerMentalHealth();
+    }
 
-        statsUIManagerScript.SetCardsPanel();
+
+    //If fame gets below 0, substracts that to mental health and sets fame to 0
+    void ChangeFamePerMentalHealth()
+    {
+        if (playerFame < 0)
+        {
+            Debug.Log("Holitzu");
+            playerMentalHealth = playerMentalHealth + playerFame;
+            playerFame = 0;
+        }
     }
 }

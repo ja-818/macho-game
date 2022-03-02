@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Rigidbody2D playerRigidbody;
-    private GameManager gameManager;
     private Vector3 startingPlayerPos;
 
     private Vector2 movement;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         startingPlayerPos = gameObject.transform.position;
         playerColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
@@ -37,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        if (!gameManager.isChallengeFound)
+        if (!GameManager.Instance.isChallengeFound)
         {
             playerRigidbody.MovePosition(playerRigidbody.position + movement * speed * Time.fixedDeltaTime);
         }
@@ -45,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     void ReturnPlayerToStartPos()
     {
-        if (gameManager.isChallengeFound && gameObject.transform.position != startingPlayerPos)
+        if (GameManager.Instance.isChallengeFound && gameObject.transform.position != startingPlayerPos)
         {
             gameObject.transform.position = startingPlayerPos;
         }
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (gameManager.isChallengeFound)
+        if (GameManager.Instance.isChallengeFound)
         {
             SceneManager.LoadScene(1);
         }
@@ -67,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (gameManager.isChallengeFound)
+        if (GameManager.Instance.isChallengeFound)
         {
             gameObject.GetComponent<SpriteRenderer>().color = highlightColor;
         }
@@ -75,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (gameManager.isChallengeFound)
+        if (GameManager.Instance.isChallengeFound)
         {
             gameObject.GetComponent<SpriteRenderer>().color = playerColor;
         }

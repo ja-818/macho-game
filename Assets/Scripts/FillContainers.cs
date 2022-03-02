@@ -10,8 +10,7 @@ public class FillContainers : MonoBehaviour
     private int number3;
     private int totalContainers;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         totalContainers = containersList.Count;
         AssignCardsToContainers();

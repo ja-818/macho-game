@@ -180,3 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9721dd840ddd671459a994a389a4a6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasChallenge: 0
+  hasCard: 0
+  statsUIManagerScript: {fileID: 0}
