@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class ChallengeManager : MonoBehaviour
 {
+    [SerializeField] List<GameObject> challengesList;
+    private int randomNumber;
+
+    private void Start()
+    {
+        randomNumber = Random.Range(0, 3);
+        challengesList[randomNumber].SetActive(true);
+    }
     public void AlternativaOnClick()
     {
         GameManager.Instance.playerFame--;

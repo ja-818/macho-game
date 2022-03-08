@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] GameObject statsPanel;
     [SerializeField] GameObject instructionsPanel;
     [SerializeField] GameObject cardsPanel;
+    [SerializeField] Animator transitionAnimation;
     private GameObject player;
     private Vector3 playerStartPos;
     private Vector3 cameraStartPos;
@@ -92,5 +93,18 @@ public class CameraManager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToReturn);
         instructionsPanel.gameObject.SetActive(true);
+    }
+
+    //Loads Next Scene and makes the transition
+    public void LoadChallengeLevel()
+    {
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        transitionAnimation.SetTrigger("Start");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(levelIndex);
     }
 }

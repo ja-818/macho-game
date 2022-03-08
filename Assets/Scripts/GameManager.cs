@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
     {
         if (playerFame < 0)
         {
-            Debug.Log("Holitzu");
             playerMentalHealth = playerMentalHealth + playerFame;
             playerFame = 0;
         }

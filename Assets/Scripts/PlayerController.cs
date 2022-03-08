@@ -5,14 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D playerRigidbody;
-    private Vector3 startingPlayerPos;
-
+    //VARIABLES
     private Vector2 movement;
     private float speed = 10f;
 
-    private Color playerColor;
+    //REFERENCES
+    [SerializeField] Rigidbody2D playerRigidbody;
+    private Vector3 startingPlayerPos;
     [SerializeField] private Color highlightColor;
+    private Color playerColor;
+    [SerializeField] CameraManager cameraManagerScript;
 
 
     private void Start()
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.isChallengeFound)
         {
-            SceneManager.LoadScene(1);
+            cameraManagerScript.LoadChallengeLevel();
         }
     }
 
